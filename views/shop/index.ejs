@@ -1,0 +1,20 @@
+// views/shop/index.ejs
+<div class="text-center mb-4">
+    <h1>Welcome to Gaming Store</h1>
+    <p>Find the best gaming products at great prices!</p>
+</div>
+
+<div class="row">
+    <% products.forEach(product => { %>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><%= product.title %></h5>
+                    <p class="card-text"><%= product.description %></p>
+                    <p class="card-text">$<%= product.price %></p>
+                    <a href="/product/<%= product._id %>" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+</div>

@@ -1,0 +1,62 @@
+
+<div class="container">
+    <h1 class="shop-title">Our Products</h1>
+    
+    <!-- Category Filter -->
+    <div class="filter-section mb-4">
+        <select class="form-select" id="categoryFilter">
+            <option value="">All Categories</option>
+            <option value="games">Games</option>
+            <option value="consoles">Consoles</option>
+            <option value="accessories">Accessories</option>
+        </select>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products-grid">
+        <% if (products.length > 0) { %>
+            <% products.forEach(function(product) { %>
+                <div class="product-card" data-category="<%= product.category %>">
+                    <img src="<%= product.imageUrl %>" alt="<%= product.name %>" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-title"><%= product.name %></h3>
+                        <p class="product-description"><%= product.description %></p>
+                        <div class="product-price">$<%= product.price.toFixed(2) %></div>
+                        
+                        <div class="product-actions">
+                            <a href="/shop/product/<%= product._id %>" class="btn btn-primary">View Details</a>
+                            
+                            <% if (typeof user !== 'undefined' && user.role === 'admin') { %>
+                                <a href="/admin/edit-product/<%= product._id %>" class="btn btn-secondary">Edit</a>
+                                <form action="/admin/delete-product/<%= product._id %>" method="POST" class="d-inline">
+                                    <button type="submit" class="btn btn-danger delete-product">Delete</button>
+                                </form>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <div class="no-products">
+                <h2>No products found</h2>
+                <p>Check back later for new products!</p>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<script>
+// Category filter functionality
+document.getElementById('categoryFilter').addEventListener('change', function(e) {
+    const category = e.target.value;
+    const products = document.querySelectorAll('.product-card');
+    
+    products.forEach(product => {
+        if (!category || product.dataset.category === category) {
+            product.style.display = 'block';
+        } else {
+            product.style.display = 'none';
+        }
+    });
+});
+</script>

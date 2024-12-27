@@ -1,0 +1,22 @@
+<nav class="navbar">
+    <div class="container">
+        <a href="/" class="navbar-brand">Gaming Store</a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop">Shop</a></li>
+            <% if (user) { %>
+                <% if (user.role === 'admin') { %>
+                    <li><a href="/admin/add-product">Add Product</a></li>
+                <% } %>
+                <li>
+                    <form action="/auth/logout" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-link">Logout</button>
+                    </form>
+                </li>
+            <% } else { %>
+                <li><a href="/auth/login">Login</a></li>
+                <li><a href="/auth/register">Register</a></li>
+            <% } %>
+        </ul>
+    </div>
+</nav>

@@ -1,5 +1,6 @@
 const Product = require("../models/Product");
 
+console.log("you are in the shoupRoutes ");
 exports.getIndex = async (req, res) => {
   try {
     const products = await Product.find();
